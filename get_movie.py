@@ -32,17 +32,24 @@ def get_douban():
             value = item['rating']['value']
             title = item['title']
             card_subtitle = item['card_subtitle']
+            countries = card_subtitle.split("/")[1].split(' ')
+            country_str = ''
+            for country in countries:
+                if country != '':
+                    if country_str != '':
+                        country_str += ','
+                    country_str += country.strip()
             tags = card_subtitle.split("/")[2].split(' ')
-            tagStr = ''
+            tag_str = ''
             for tag in tags:
                 if tag != '':
-                    if tagStr != '':
-                        tagStr += ','
-                    tagStr += tag
+                    if tag_str != '':
+                        tag_str += ','
+                    tag_str += tag
             cover = item['pic']['large']
             movieid = item['id']
             year = item['year']
-            record = str(movieid) + ';' + title + ';' + tagStr + ';' + cover + ';' + str(year) + ';' + str(value) + ';' + str(count) + ';' + str(star) + '\n'
+            record = str(movieid) + ';' + title + ';' + tag_str + ';' + country_str + ';' + cover + ';' + str(year) + ';' + str(value) + ';' + str(count) + ';' + str(star) + '\n'
             # fw.write(record.encode('utf8'))
             print(record)
         start = start + 20
